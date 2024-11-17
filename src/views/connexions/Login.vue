@@ -28,6 +28,13 @@
 //utilisation de reactive pour rentre ma variable data en un objet reactif
 import { reactive } from 'vue';
 
+// Import du routeur
+import { useRouter } from 'vue-router';
+
+// Initialisation du routeur
+const router = useRouter();
+
+
 const data = reactive({
     email:"",
     password:""
@@ -37,7 +44,8 @@ let handleSubmit = () => {
     if(!validateForm()){
         console.log("formulaire incorrect");
     }else{
-        console.log("Formulaire validé");      
+        console.log("form validé redirection page home");      
+        router.push("/home")   
     }
     
     
