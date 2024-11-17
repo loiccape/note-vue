@@ -19,7 +19,25 @@ let data = reactive({
 })
 
 let handleSubmit = () => {
+
+    if(validateForm()){
+        console.log("form validé");
+        
+    }else{
+        console.log("form erreur");
+        
+    }
     console.log(data);
     
+}
+
+let validateForm = () => {
+
+    if(!data.email){
+        console.log("Entrer une addresse mail");
+        return false
+    }
+
+    return true
 }
 </script>
