@@ -6,7 +6,7 @@
         <form @submit.prevent="handleSubmit">
             <label for="email">Email Address</label>
             <input type="email" id="email" v-model="data.email" placeholder="email@example.com"/>
-            <button type="submit">Login</button>
+            <button type="submit">Send Reset Link</button>
         </form>
     </div>
 </template>
