@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from 'vue-router'
 
 import Login from '@/views/connexions/Login.vue'
 import Forgotten from '@/views/connexions/Forgotten.vue'
@@ -17,7 +17,7 @@ const routes = [
   
   // Notes routes
   { path: '/notes/note', name:"note" , component: Note },
-  { path: '/notes/note-detail/:index', name:"noteDetail" , component: NoteDetail },
+  { path: '/notes/note-detail/:id', name:"noteDetail" , component: NoteDetail },
 
 
 
@@ -25,7 +25,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 
