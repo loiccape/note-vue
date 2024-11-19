@@ -1,5 +1,5 @@
 <template>
-    <div @click="goToNoteDetail">
+    <div @click="goToNoteDetail(note.id)">
       <p>{{ note.title }}</p>
       <p>{{ note.tags.join(', ') }}</p>
       <p>{{ note.content }}</p>
@@ -15,14 +15,13 @@
   const router = useRouter();
   
 
-  const props  = defineProps<{
+defineProps<{
     note: NoteModel;
-    index: number;
   }>();
   
 
-const goToNoteDetail = () => {
-  router.push({ name: 'noteDetail', params: { index: props.index.toString() } });
+const goToNoteDetail = (noteId:string) => {
+  router.push({ name: 'noteDetail', params: { id: noteId } });
 };
   </script>
   
