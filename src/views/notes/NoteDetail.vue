@@ -1,12 +1,30 @@
 <template>
-    <p>Note detail</p>
-    <p>{{ index }}</p>
-</template>
-
-<script setup lang="ts">
-import { useRoute } from 'vue-router';
-
-// Accéder au paramètre d'URL avec useRoute
-const route = useRoute();
-const index = route.params.index;
-</script>
+    <div v-if="note">
+      <h1>{{ note.title }}</h1>
+      <p>Tags: {{ note.tags.join(', ') }}</p>
+      <p>Content: {{ note.content }}</p>
+      <p>Last Edited: {{ note.lastEdited }}</p>
+    </div>
+    <p v-else>Note not found</p>
+  </template>
+  
+  <script setup lang="ts">
+  import { ref, onMounted } from 'vue';
+  import { useRoute } from 'vue-router';
+  import { useNoteStore } from '@/stores/noteStore';
+  import NoteModel from '@/models/NoteModel';
+  
+  //recuperation du paramatre "id" dans la route 
+  const route = useRoute();
+  const id = route.params.id as string;
+  
+  const note = ref<NoteModel | null>(null);
+  
+  const noteStore = useNoteStore();
+  
+  onMounted(() => {
+    // Rechercher la note par ID dans le store
+    note.value = noteStore.notes.find((n) => n.id === id) || null;
+  });
+  </script>
+  

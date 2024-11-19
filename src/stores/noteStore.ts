@@ -1,6 +1,6 @@
 // store/noteStore.ts
 import { defineStore } from 'pinia';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import NoteModel from '@/models/NoteModel'; // Assurez-vous que le modèle existe
 
 // Importation du fichier JSON
