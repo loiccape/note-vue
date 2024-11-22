@@ -1,83 +1,102 @@
 <template>
-    <div>
-        <h1>Notes</h1>
-        <span>Please log in to continue</span>
 
-        <form @submit.prevent="handleSubmit">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" v-model="data.email"/>
-            <label for="password">Password</label>
-            <div>
-                <input type="password" id="password" v-model="data.password"/>
-<a href="#">Forgot</a>
-            </div>
-            <button type="submit">Login</button>
-        </form>
+    <Card class="m-4">
+        <CardHeader>
+            <CardTitle>Welcome to Note</CardTitle>
+            <CardDescription>Please log in to continue</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <form @submit="onSubmit">
+                <FormField v-slot="{ componentField }" name="email">
+                    <FormItem>
+                        <FormLabel>Email Adress</FormLabel>
+                        <FormControl>
+                            <Input type="email" placeholder="email@example.com" v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <FormField v-slot="{ componentField }" name="password">
+                    <FormItem class="mt-2">
+                        <div class="w-full flex justify-between items-end">
+                            <FormLabel>Password</FormLabel>
+                            <a href="/connexion/forgotten">Forgot</a>
+                        </div>
+                        <FormControl>
+                            <Input type="password" v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+                <Button type="submit" class="mt-4">
+                    Submit
+                </Button>
+            </form>
+            <CardFooter>
+                <p class="mx-auto mt-4">No account yet? <a href="">Sign Up</a></p>
+            </CardFooter>
+        </CardContent>
+    </Card>
 
-        <div>
-            <span>Or log in with:</span>
-            <button>Google</button>
-            <span>No account yet? <a href="#">Sign Up</a></span>
-        </div>
-    </div>
+
+
 </template>
 
+<script setup lang="ts">
 
-<script setup>
+// imports shadcn
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
 
-//utilisation de reactive pour rentre ma variable data en un objet reactif
-import { reactive } from 'vue';
+import { Button } from '@/components/ui/button'
 
-// Import du routeur
-import { useRouter } from 'vue-router';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card'
 
-// Initialisation du routeur
+
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+
+
+
+//import router
+import { useRouter } from 'vue-router'
+import CardFooter from '@/components/ui/card/CardFooter.vue'
+
 const router = useRouter();
 
 
-const data = reactive({
-    email:"",
-    password:""
+const formSchema = toTypedSchema(z.object({
+    email: z
+        .string()
+        .email("Please enter a valid email address")
+        .min(2, "Email must be at least 2 characters long")
+        .max(50, "Email must not exceed 50 characters"),
+    password: z
+        .string()
+        .min(2, "Password must be at least 2 characters long")
+        .max(50, "Password must not exceed 50 characters"),
+}))
+
+
+const form = useForm({
+    validationSchema: formSchema,
 })
 
-let handleSubmit = () => {
-    if(!validateForm()){
-        console.log("formulaire incorrect");
-    }else{
-        console.log("form validé redirection page home");      
-        router.push("/home")   
-    }
-    
-    
-}
+const onSubmit = form.handleSubmit(() => {
 
-//Verifie la validité du formulaire
-let validateForm = () => {
-    if (!data.email) {
-        alert("Veuillez entrer une adresse email.");
-        return false;
-    }
-
-    if (!data.password) {
-        alert("Veuillez entrer un mot de passe.");
-        return false;
-    }
-
-    if (!checkPassword(data.password)) {
-        return false; 
-    }
-
-    return true; 
-};
-
-
-// Vérifie la validité du mot de passe
-let checkPassword = (password) => {
-    if (password.length < 8) {
-        alert("Le mot de passe doit contenir au moins 8 caractères.");
-        return false;
-    }
-    return true;
-};
-
+    router.push("/notes/note")
+})
 </script>
