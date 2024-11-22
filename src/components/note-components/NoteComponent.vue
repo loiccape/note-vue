@@ -1,6 +1,6 @@
 <template>
     <div @click="goToNoteDetail(note.id)" class="p-1 text-text border-b-2">
-      <p class=" text-1xl font-semibold">{{ note.title }}</p>
+      <p class=" text-1xl md:text-2xl font-semibold">{{ note.title }}</p>
       <Badge v-for="tag in note.tags" :key="tag" class="mr-2 mt-2">{{ tag }}</Badge>
       <!-- <p>{{ note.content }}</p> -->
       <p class="mt-1 text-slate-500">{{ note.getFormattedDate() }}</p>

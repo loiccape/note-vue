@@ -1,7 +1,9 @@
 <template>
   <section class="m-4">
-    
-    <h2 class="text-4xl font-bold">All Notes</h2>
+    <div class="flex justify-between">
+      <h2 class="text-4xl font-bold">All Notes</h2>
+      <Input class="w-1/4 hidden lg:block" placeholder="Search by title, content, or tags…"/>
+    </div>
     <div class="mt-4">
       <!-- Boucle sur les notes et passe chaque note au composant NoteComponent -->
       <NoteComponent v-for="(note, index) in notes" :key="index" :note="note" :index="index" />
@@ -15,7 +17,10 @@
 import { useNoteStore } from '@/stores/noteStore';
 import NoteComponent from '@/components/note-components/NoteComponent.vue';
 
+//imports shadcn
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
 
 const noteStore = useNoteStore();
 
