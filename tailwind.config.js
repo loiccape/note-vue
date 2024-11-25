@@ -26,12 +26,12 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "#faf8ff",
+        background: "#f8f3fe",
         foreground: "hsl(var(--foreground))",
-        text:"#040111",
-        primary:"#4f15f2",
-        secondary:"#f775ce",
-        accent:"#f54979"
+        text:"#0a0116",
+        primary:"#9322f3",
+        secondary:"#f89083",
+        accent:"#f5b746"
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
